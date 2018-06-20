@@ -13,9 +13,12 @@ const guardarDB = () => {
     });
 }
 
-const getListado = () => {
+const getListado = (completado) => {
     cargarDB();
-    return listadoPorHacer;
+    if (completado === undefined)
+        return listadoPorHacer;
+    let nuevoListado = listadoPorHacer.filter(item => item.completado === completado);
+    return nuevoListado;
 }
 
 const cargarDB = () => {
@@ -57,8 +60,6 @@ const actualizar = (descripcion, completado = true) => {
     } else {
         return false;
     }
-
-
 }
 
 const borrar = (descripcion) => {
@@ -78,16 +79,6 @@ const borrar = (descripcion) => {
         guardarDB();
         return true;
     }
-    /*  //utilizando findIndex
-        let index = listadoPorHacer.findIndex(item => item.descripcion === descripcion);
-
-        if (index >= 0) {
-            listadoPorHacer.splice(index, 1);
-            guardarDB();
-            return true;
-        } else {
-            return false;
-        } */
 }
 
 module.exports = {
